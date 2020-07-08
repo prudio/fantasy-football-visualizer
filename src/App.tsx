@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import { mockData } from "./mockdata";
-import { LineChart } from "./chart";
+import { mockData, PlayerDetails } from "./mockdata";
+import { LineChart, ChartInfo } from "./chart";
 
 function App() {
   return (
@@ -39,13 +39,26 @@ const Header = () => {
  */
 const Content = () => {
   const mock = mockData;
+  const data = processNFLData(mock);
   return (
     <div>
       should contain container for charts.
       <Chart />
-      <LineChart data={mock} />
+      <LineChart info={data} />
     </div>
   );
+};
+
+const processNFLData = (data: PlayerDetails[]): ChartInfo => {
+  return {
+    city: data[0]?.city,
+    player: data[0]?.player || "default",
+    team: data[0]?.team,
+    data: data.map((v) => ({
+      x: v.year,
+      y: v.ppg,
+    })),
+  };
 };
 
 interface Player {
