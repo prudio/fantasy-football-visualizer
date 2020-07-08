@@ -16,6 +16,6 @@ export interface PlayerDetails {
 // Russell wilson average points per game per season
 export const mockData: PlayerDetails[] = [
   { player: PLAYER, city: CITY, team: TEAM, ppg: 20, year: 2017 },
-  { player: PLAYER, city: CITY, team: TEAM, ppg: 21, year: 2018 },
-  { player: PLAYER, city: CITY, team: TEAM, ppg: 22, year: 2019 },
+  { player: PLAYER, city: CITY, team: TEAM, ppg: 28, year: 2018 },
+  { player: PLAYER, city: CITY, team: TEAM, ppg: 23, year: 2019 },
 ];
