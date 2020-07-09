@@ -16,13 +16,17 @@ interface Point {
   y: number;
 }
 
+// Year of oldest NFL data we've collected
+/** Year of oldest NFL data we've collected */
+const YEAR_OF_OLDEST_DATA = 2010;
+
 const GENERAL_CHART_OPTIONS: ChartOptions = {
   responsive: true,
   scales: {
     xAxes: [
       {
         ticks: {
-          min: 2010,
+          min: YEAR_OF_OLDEST_DATA,
         },
       },
     ],
