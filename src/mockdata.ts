@@ -3,7 +3,7 @@
  */
 
 const PLAYER = "Russell Wilson";
-const CITY = "City";
+const CITY = "Seattle";
 const TEAM = "Seahawks";
 
 export interface PlayerDetails {

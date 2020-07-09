@@ -21,35 +21,31 @@ const Body = () => {
 };
 
 const Header = () => {
-  const russell = useNFLPlayer();
-
   return (
     <div>
-      In here, we should have filter controls and some other interactive
-      options.
-      <div className="c-player__name">{russell.name}</div>
-      <div className="c-player__position">{russell.position}</div>
-      <div className="c-player__team">{russell.team}</div>
+      Here's the header. We should have filter controls and some other
+      interactive options placed here.
     </div>
   );
 };
 
 /**
- * This should contain the chart containers and render different charts.
+ * Contains the interactive chart of the page.
  */
 const Content = () => {
   const mock = mockData;
   const data = processNFLData(mock);
   return (
     <div>
-      should contain container for charts.
-      <Chart />
       <LineChart info={data} />
     </div>
   );
 };
 
 const processNFLData = (data: PlayerDetails[]): ChartInfo => {
+  if (data.length === 0) {
+    throw new Error("Received 0 player results");
+  }
   const xMin = data.reduce(
     (memo, cur) => (memo < cur.year ? memo : cur.year),
     Infinity
@@ -58,11 +54,14 @@ const processNFLData = (data: PlayerDetails[]): ChartInfo => {
     (memo, cur) => (memo > cur.year ? memo : cur.year),
     -Infinity
   );
+  const { player, team, city } = data[0];
+
+  const label = `${player} ${
+    team !== undefined && city !== undefined ? `(${city} ${team})` : ""
+  }`;
 
   return {
-    city: data[0]?.city,
-    player: data[0]?.player || "default",
-    team: data[0]?.team,
+    label,
     data: data.map((v) => ({
       x: v.year,
       y: v.ppg,
@@ -71,25 +70,5 @@ const processNFLData = (data: PlayerDetails[]): ChartInfo => {
     xMax,
   };
 };
-
-interface Player {
-  name: string;
-  position: string;
-  team: string;
-}
-
-const Chart = () => {
-  return <div></div>;
-};
-
-/**
- * TODO: Create react hooks to handle asynchronous data fetches.
- */
-
-const useNFLPlayer = (): Player => {
-  return { name: "Russell Wilson", position: "Quarterback", team: "Seahawks" };
-};
-
-// TODO: create different chart types
 
 export default App;

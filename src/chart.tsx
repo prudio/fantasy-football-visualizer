@@ -3,9 +3,7 @@ import { ChartOptions, ChartDataSets } from "chart.js";
 import Chart from "chart.js";
 
 export interface ChartInfo {
-  city: string;
-  team: string;
-  player: string;
+  label: string | undefined;
   data: Point[];
   xMin: number;
   xMax: number;
@@ -16,7 +14,6 @@ interface Point {
   y: number;
 }
 
-// Year of oldest NFL data we've collected
 /** Year of oldest NFL data we've collected */
 const YEAR_OF_OLDEST_DATA = 2010;
 
@@ -38,8 +35,8 @@ const DEFAULT_DATASET_OPTIONS: ChartDataSets = {
 };
 
 /**
- * Add different chart implementations here. Use Chart.js and Anime.js as a part
- * of this implementation.
+ * Line chart component
+ *
  */
 export const LineChart: FC<{ info: ChartInfo }> = ({ info }) => {
   const chartContainer = useRef<HTMLCanvasElement | null>(null);
@@ -47,7 +44,7 @@ export const LineChart: FC<{ info: ChartInfo }> = ({ info }) => {
 
   const chartData = ((data) => {
     return {
-      label: info.player || "testing this",
+      label: info.label || "testing this",
       backgroundColor: "rgb(44,44,44)",
       borderColor: "rgb(88,88,88)",
       data: data.data,
@@ -78,11 +75,16 @@ export const LineChart: FC<{ info: ChartInfo }> = ({ info }) => {
   );
 };
 
-const getXAxisLabelsByYears = (min: number, max: number): number[] => {
-  let counter = min;
+/**
+ * @param minYear number
+ * @param maxYear number
+ * @returns number[] list of years to display on a chart xAxis
+ */
+const getXAxisLabelsByYears = (minYear: number, maxYear: number): number[] => {
+  let counter = minYear;
 
   const result = [];
-  while (counter <= max) {
+  while (counter <= maxYear) {
     result.push(counter);
     counter++;
   }
