@@ -1,4 +1,4 @@
-import React, { useState, useEffect, VideoHTMLAttributes, FC } from "react";
+import React, { useState, useEffect, FC } from "react";
 import "./App.css";
 import { mockData, PlayerDetails, mockPPGData, PlayerPPG } from "./mockdata";
 import { LineChart, BarChart, ScatterChart, LineChartPPG, BarChartPPG, ScatterChartPPG, ChartInfo } from "./chart";

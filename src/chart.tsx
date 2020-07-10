@@ -15,6 +15,7 @@ interface Point {
   y: number;
 }
 
+// Year of oldest NFL data we've collected
 /** Year of oldest NFL data we've collected */
 const YEAR_OF_OLDEST_DATA = 2010;
 
